@@ -1,0 +1,83 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Menu extends JFrame {
+    private JPanel mainPanel;
+    private JPanel submenuPanel;
+    private boolean isMainMenuVisible = false;
+    private boolean isSubmenuVisible = false;
+
+    public Menu() {
+        setTitle("Меню по вызову");
+        setSize(300, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBackground(Color.WHITE);
+        mainPanel.setVisible(false);
+
+        addMenuItem(mainPanel, "1. Страна");
+        addMenuItem(mainPanel, "2. Город ");
+        addMenuItem(mainPanel, "3. Улица ");
+
+        submenuPanel = new JPanel();
+        submenuPanel.setLayout(new BoxLayout(submenuPanel, BoxLayout.Y_AXIS));
+        submenuPanel.setBackground(Color.WHITE);
+        submenuPanel.setVisible(false); 
+
+        addMenuItem(submenuPanel, "Россия       ");
+        addMenuItem(submenuPanel, "Калининград  ");
+        addMenuItem(submenuPanel, "Горького, 166");
+
+        add(mainPanel, BorderLayout.CENTER);
+        add(submenuPanel, BorderLayout.EAST);
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                handleKeyPress(e);
+            }
+        });
+
+        setFocusable(true);  
+        setVisible(true);
+    }
+
+    private void addMenuItem(JPanel panel, String itemName) {
+        JLabel menuItem = new JLabel(itemName);
+        menuItem.setForeground(Color.MAGENTA);
+        menuItem.setOpaque(true);
+        menuItem.setBackground(Color.BLACK);
+        menuItem.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        panel.add(menuItem);
+    }
+
+    private void handleKeyPress(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_SPACE) {  
+            isMainMenuVisible = !isMainMenuVisible;
+            mainPanel.setVisible(isMainMenuVisible);
+            if (!isMainMenuVisible) {
+                submenuPanel.setVisible(false); 
+                isSubmenuVisible = false;
+            }
+        } else if (keyCode == KeyEvent.VK_ENTER) {  
+            if (isMainMenuVisible && !isSubmenuVisible) {
+                isSubmenuVisible = true;
+                submenuPanel.setVisible(true);
+            } else if (isSubmenuVisible) {
+                isSubmenuVisible = false;
+                submenuPanel.setVisible(false);
+            }
+        } else if (keyCode == KeyEvent.VK_ESCAPE) {  
+            System.exit(0);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(Menu::new);
+    }
+}
