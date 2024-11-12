@@ -1,0 +1,61 @@
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class Catalog {
+    private String bookTitle; 
+    private String author;    
+    private List<IssueRecord> issueHistory; 
+
+    public Catalog(String bookTitle, String author) {
+        this.bookTitle = bookTitle;
+        this.author = author;
+        this.issueHistory = new ArrayList<>();
+    }
+
+    public class IssueRecord {
+        private String readerName; 
+        private Date issueDate;    
+        private Date returnDate;   
+
+        public IssueRecord(String readerName, Date issueDate, Date returnDate) {
+            this.readerName = readerName;
+            this.issueDate = issueDate;
+            this.returnDate = returnDate;
+        }
+
+        @Override
+        public String toString() {
+            return "Выдано читателю: " + readerName + ", Дата выдачи: " + issueDate + ", Дата возврата: " + (returnDate != null ? returnDate : "не возвращено");
+        }
+    }
+
+    public void addIssueRecord(String readerName, Date issueDate, Date returnDate) {
+        IssueRecord record = new IssueRecord(readerName, issueDate, returnDate);
+        issueHistory.add(record);
+    }
+
+    public void printIssueHistory() {
+        System.out.println("История выдач книги '" + bookTitle + "' автора " + author + ":");
+        for (IssueRecord record : issueHistory) {
+            System.out.println(record);
+        }
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public static void main(String[] args) {
+        Catalog catalog = new Catalog("Война и мир", "Лев Толстой");
+
+        catalog.addIssueRecord("Иван Иванов", new Date(), null);
+        catalog.addIssueRecord("Петр Петров", new Date(), new Date());
+
+        catalog.printIssueHistory();
+    }
+}
