@@ -1,0 +1,203 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+class InvalidValueException extends Exception {
+    public InvalidValueException(String message) {
+        super(message);
+    }
+}
+
+class ObjectNotFoundException extends Exception {
+    public ObjectNotFoundException(String message) {
+        super(message);
+    }
+}
+
+class CelestialBody {
+    protected String name;
+
+    public CelestialBody(String name) throws InvalidValueException {
+        if (name == null || name.isEmpty()) {
+            throw new InvalidValueException("Имя небесного тела не может быть пустым");
+        }
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) throws InvalidValueException {
+        if (name == null || name.isEmpty()) {
+            throw new InvalidValueException("Имя небесного тела не может быть пустым");
+        }
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CelestialBody that = (CelestialBody) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return "CelestialBody{name='" + name + "'}";
+    }
+}
+
+class Star extends CelestialBody {
+    private double brightness;
+
+    public Star(String name, double brightness) throws InvalidValueException {
+        super(name);
+        if (brightness < 0) {
+            throw new InvalidValueException("Яркость не может быть отрицательной");
+        }
+        this.brightness = brightness;
+    }
+
+    public double getBrightness() {
+        return brightness;
+    }
+
+    public void setBrightness(double brightness) throws InvalidValueException {
+        if (brightness < 0) {
+            throw new InvalidValueException("Яркость не может быть отрицательной");
+        }
+        this.brightness = brightness;
+    }
+
+    @Override
+    public String toString() {
+        return "Star{name='" + name + "', brightness=" + brightness + "}";
+    }
+}
+
+class Planet extends CelestialBody {
+    private List<Moon> moons;
+    private double radius;
+
+    public Planet(String name, double radius) throws InvalidValueException {
+        super(name);
+        if (radius <= 0) {
+            throw new InvalidValueException("Радиус планеты должен быть положительным");
+        }
+        this.radius = radius;
+        this.moons = new ArrayList<>();
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) throws InvalidValueException {
+        if (radius <= 0) {
+            throw new InvalidValueException("Радиус планеты должен быть положительным");
+        }
+        this.radius = radius;
+    }
+
+    public void addMoon(Moon moon) {
+        moons.add(moon);
+    }
+
+    public List<Moon> getMoons() {
+        return moons;
+    }
+
+    @Override
+    public String toString() {
+        return "Planet{name='" + name + "', radius=" + radius + ", moons=" + moons.size() + "}";
+    }
+}
+
+class Moon extends CelestialBody {
+    public Moon(String name) throws InvalidValueException {
+        super(name);
+    }
+
+    @Override
+    public String toString() {
+        return "Moon{name='" + name + "'}";
+    }
+}
+
+class StarSystem {
+    private Star star;
+    private List<Planet> planets;
+
+    public StarSystem(Star star) throws ObjectNotFoundException {
+        if (star == null) {
+            throw new ObjectNotFoundException("Звезда не может быть null");
+        }
+        this.star = star;
+        this.planets = new ArrayList<>();
+    }
+
+    public Star getStar() {
+        return star;
+    }
+
+    public void addPlanet(Planet planet) throws ObjectNotFoundException {
+        if (planet == null) {
+            throw new ObjectNotFoundException("Планета не может быть null");
+        }
+        planets.add(planet);
+    }
+
+    public int getPlanetCount() {
+        return planets.size();
+    }
+
+    public List<Planet> getPlanets() {
+        return planets;
+    }
+
+    @Override
+    public String toString() {
+        return "StarSystem{star=" + star.getName() + ", planets=" + planets.size() + "}";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            Star sun = new Star("Солнце", 1.0);
+            Planet earth = new Planet("Земля", 6371);
+            Planet mars = new Planet("Марс", 3389.5);
+
+            earth.addMoon(new Moon("Луна"));
+            mars.addMoon(new Moon("Фобос"));
+            mars.addMoon(new Moon("Деймос"));
+
+            StarSystem solarSystem = new StarSystem(sun);
+            solarSystem.addPlanet(earth);
+            solarSystem.addPlanet(mars);
+
+            System.out.println("Звезда системы: " + solarSystem.getStar().getName());
+            System.out.println("Количество планет в системе: " + solarSystem.getPlanetCount());
+
+            System.out.println("\nСписок планет:");
+            for (Planet planet : solarSystem.getPlanets()) {
+                System.out.println(planet);
+            }
+
+        } catch (InvalidValueException | ObjectNotFoundException e) {
+            System.err.println("Ошибка: " + e.getMessage());
+        } catch (OutOfMemoryError e) {
+            System.err.println("Ошибка: Недостаточно памяти для выполнения операции");
+        } catch (Exception e) {
+            System.err.println("Неизвестная ошибка: " + e.getMessage());
+        }
+    }
+}
