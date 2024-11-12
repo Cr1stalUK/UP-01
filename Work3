@@ -1,0 +1,152 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+class CelestialBody {
+    protected String name;
+
+    public CelestialBody(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CelestialBody that = (CelestialBody) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return "CelestialBody{name='" + name + "'}";
+    }
+}
+class Star extends CelestialBody {
+    private double brightness; 
+
+    public Star(String name, double brightness) {
+        super(name);
+        this.brightness = brightness;
+    }
+
+    public double getBrightness() {
+        return brightness;
+    }
+
+    public void setBrightness(double brightness) {
+        this.brightness = brightness;
+    }
+
+    @Override
+    public String toString() {
+        return "Star{name='" + name + "', brightness=" + brightness + "}";
+    }
+}
+class Planet extends CelestialBody {
+    private List<Moon> moons; 
+    private double radius;
+
+    public Planet(String name, double radius) {
+        super(name);
+        this.radius = radius;
+        this.moons = new ArrayList<>();
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public void addMoon(Moon moon) {
+        moons.add(moon);
+    }
+
+    public List<Moon> getMoons() {
+        return moons;
+    }
+
+    @Override
+    public String toString() {
+        return "Planet{name='" + name + "', radius=" + radius + ", moons=" + moons.size() + "}";
+    }
+}
+class Moon extends CelestialBody {
+
+    public Moon(String name) {
+        super(name);
+    }
+
+    @Override
+    public String toString() {
+        return "Moon{name='" + name + "'}";
+    }
+}
+class StarSystem {
+    private Star star;
+    private List<Planet> planets;
+
+    public StarSystem(Star star) {
+        this.star = star;
+        this.planets = new ArrayList<>();
+    }
+
+    public Star getStar() {
+        return star;
+    }
+
+    public void addPlanet(Planet planet) {
+        planets.add(planet);
+    }
+
+    public int getPlanetCount() {
+        return planets.size();
+    }
+
+    public List<Planet> getPlanets() {
+        return planets;
+    }
+
+    @Override
+    public String toString() {
+        return "StarSystem{star=" + star.getName() + ", planets=" + planets.size() + "}";
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        
+        Star sun = new Star("Солнце", 1.0);
+        Planet earth = new Planet("Земля", 6371);
+        Planet mars = new Planet("Марс", 3389.5);
+
+        earth.addMoon(new Moon("Луна"));
+        mars.addMoon(new Moon("Фобос"));
+        mars.addMoon(new Moon("Деймос"));
+
+        StarSystem solarSystem = new StarSystem(sun);
+        solarSystem.addPlanet(earth);
+        solarSystem.addPlanet(mars);
+        System.out.println("Звезда системы: " + solarSystem.getStar().getName());
+        System.out.println("Количество планет в системе: " + solarSystem.getPlanetCount());
+
+        System.out.println("\nСписок планет:");
+        for (Planet planet : solarSystem.getPlanets()) {
+            System.out.println(planet);
+        }
+    }
+}
