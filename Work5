@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class TextProcessor {
+    public static String processString(String str, char symbol, int k, int flag) {
+        if (flag == 0) {
+            return str.replace(Character.toString(symbol), "");
+        } else if (flag == 1 && k < str.length()) {
+            return str.substring(0, k + 1) + symbol + str.substring(k + 1);
+        }
+        return str; 
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Введите количество строк:");
+        int n = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Введите символ для удаления или вставки:");
+        char symbol = scanner.next().charAt(0);
+
+        System.out.println("Введите значение k (позиция для вставки):");
+        int k = scanner.nextInt();
+        scanner.nextLine();
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Введите строку:");
+            String inputString = scanner.nextLine();
+
+            System.out.println("Введите признак (0 - удалить символ, 1 - вставить символ):");
+            int flag = scanner.nextInt();
+            scanner.nextLine();
+
+            String result = processString(inputString, symbol, k, flag);
+
+            System.out.println("Результат: " + result);
+        }
+
+        scanner.close();
+    }
+}
