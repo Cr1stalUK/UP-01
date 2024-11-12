@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Разработка АИС «Автосервис»</title>
+    <style>
+        body {
+            background-image: url('images/green.png'); /* Фоновый файл */
+            background-size: cover;
+            color: white;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        .section-text {
+            max-width: 900px;
+            font-size: 1.2em;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .images-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .images-container img {
+            max-width: 80%;
+            height: auto;
+        }
+        .link-container {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .link-container a {
+            font-size: 1.2em;
+            color: white;
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .link-container a:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <h1>Разработка АИС «Автосервис»</h1>
+    <p class="section-text">
+        В качестве серверной части разработать базу данных в СУБД MySQL в соответствии с вариантом. База данных содержит таблицу, состоящую из не менее чем 5-ти полей и 20-ти записей. 
+        Клиентская часть должна быть разработана на языке Java. Каждый запрос должен быть реализован отдельным методом. Все методы могут принадлежать одному классу. Отдельно должен быть реализован класс, содержащий метод main().
+    </p>
+    <p class="section-text">
+        Я выбрала вариант написания базы данных через SQLite и после подключила ее через IntelliJ IDEA на Java для отображения данных таблиц.
+    </p>
+
+    <div class="images-container">
+        <<img src="images/diagAIS.png" alt="Auto Service Image 1">
+        <p class="image-description">ER-диаграмма, отображающая структуру базы данных «Автосервис».</p>
+        
+        <img src="images/tableSQLite.png" alt="Auto Service Image 2">
+        <p class="image-description">Таблица "Сотрудники" на SQLite.</p>
+        
+        <img src="images/connect.png" alt="Auto Service Image 3">
+        <p class="image-description">Успешное соединение с БД на SQLite.</p>
+        
+        <img src="images/tableJava.png" alt="Auto Service Image 4">
+        <p class="image-description">Вывод таблицы "Клиенты".</p>
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/blob/main/%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0%20%D0%90%D0%98%D0%A1/java/%D0%94%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F.docx" target="_blank">Ссылка на документацию</a>
+    </div>
+</body>
+</html>

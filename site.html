@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Разработка web-сайта для УП01</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            text-align: center;
+            background-image: url('images/green.png'); /* Замените на ваш фоновый файл */
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        header {
+            margin-top: 20px;
+        }
+        h1 {
+            font-size: 2em;
+        }
+        section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6); /* Прозрачный фон для лучшей читабельности текста */
+            border-radius: 10px;
+        }
+        .images {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .images img {
+            max-width: 90%;
+            height: auto;
+            border-radius: 5px;
+        }
+        figcaption {
+            margin-top: 5px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Разработка web-сайта для УП.01</h1>
+    </header>
+
+    <section>
+        <p>Целью разработки сайта является представление проделанной работы на практике. Контент связан с разработкой программных модулей, созданием АИС, 1С программированием, разработкой мобильного приложения и также с созданием сайта.</p>
+        <p>Среда разработки для создания сайта – Visual Studio Code</p>
+        <p>Использовались: язык разметки HTML (для создания структуры и содержимого) и язык стиля CSS (для описания представления и макета)</p>
+    </section>
+
+    <section class="images">
+        <figure>
+            <img src="images/site1.png" alt="Пример работы сайта">
+            <figcaption>Главная страница сайта с кнопками для перехода на другие страницы</figcaption>
+        </figure>
+        <figure>
+            <img src="images/site2.png" alt="Пример дизайна сайта">
+            <figcaption>Демонстрация страницы "Разработка программных модулей</figcaption>
+        </figure>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+/* Установка фонового изображения для всей страницы */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('images/fon.png'); /* Замените на имя файла вашего фонового изображения */
+    background-size: cover;
+    color: #333;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Стиль для верхней картинки и текста */
+.top-image {
+    width: 100%;
+    padding: 40px 0;
+    text-align: center;
+    background-image: url('images/up.jpg'); /* Замените на имя файла верхней картинки */
+    background-size: cover;
+    color: white;
+}
+.image-container {
+    text-align: center; /* Центрируем изображение и подпись */
+    position: relative;
+}
+
+.caption {
+    font-size: 22px; /* Увеличиваем размер текста */
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон */
+    padding: 10px 20px;
+    text-align: center;
+    max-width: 300px; /* Ограничение ширины фона по размеру картинки */
+    margin: 10px auto;
+    position: absolute;
+    bottom: 10px; /* Размещаем подпись немного ниже картинки */
+    left: 50%;
+    transform: translateX(-50%); /* Центрируем подпись относительно картинки */
+    border-radius: 5px; /* Скругленные углы для фона */
+}
+
+
+/* Добавление тени к заголовку */
+h1 {
+    font-size: 2.5em;
+    margin: 0;
+    color: white;
+    text-shadow: 2px 2px 4px #000000; /* Тень для текста */
+}
+
+/* Добавление тени для параграфа */
+p {
+    font-size: 1.2em;
+    color: white;
+    text-shadow: 2px 2px 4px #000000; /* Тень для текста */
+}
+
+/* Стиль для текстов с полупрозрачным фоном */
+.text-button {
+    display: inline-block;
+    padding: 20px 40px;  /* Увеличен padding для большей области текста */
+    font-size: 1.5em;  /* Увеличен размер текста */
+    color: white;
+    text-decoration: none;  /* Убираем подчеркивание */
+    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон */
+    border-radius: 10px; /* Увеличен радиус скругления для более мягких углов */
+    margin: 20px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Эффект при наведении на текст */
+.text-button:hover {
+    background-color: rgba(0, 0, 0, 0.9); /* Темнее при наведении */
+    transform: translateY(-5px); /* Эффект подъема при наведении */
+}
+
+/* Стиль для раздела с текстами в левой и правой части */
+.button-section {
+    display: flex;
+    justify-content: center; /* Размещаем элементы по центру */
+    gap: 500px; /* Добавляем промежуток между текстами */
+    width: 100%;
+    margin-top: 10%;  /* Сдвигаем блок чуть выше */
+}
+
+/* Стили для левой и правой части остались не нужными */

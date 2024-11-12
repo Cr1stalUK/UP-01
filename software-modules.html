@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Разработка программных модулей</title>
+    <style>
+        body {
+            background-image: url('images/green.png');
+            background-size: cover;
+            color: white;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .task-title {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        .task-description {
+            max-width: 900px;
+            font-size: 1.2em;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .images-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .images-container img {
+            max-width: 80%;
+            height: auto;
+        }
+        .link-container {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .link-container a {
+            font-size: 1.2em;
+            color: white;
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .link-container a:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <h1>Разработка программных модулей</h1>
+    <p class="task-title">Задача 1</p>
+    <p class="task-description">
+        Ввести с консоли n-размерность матрицы a[n][n]. Задать значения элементов матрицы в интервале значений от -n до n с помощью датчика случайных чисел.
+        Выполнить циклический сдвиг заданной матрицы на k позиций вправо (влево, вверх, вниз).
+    </p>
+    
+    <div class="images-container">
+        <img src="images/table1.png" alt="Image 1">
+        <img src="images/res1.png" alt="Image 2">
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/tree/main/Разработка%20программных%20модулей/Work1" target="_blank">Код программы</a>
+    </div>
+
+    <p class="task-title">Задача 2</p>
+    <p class="task-description">
+        Создать классы, спецификации которых приведены ниже. Определить конструкторы и методы setTun(), getTun(), toString(). 
+        Определить дополнительно методы в классе, создающем массив объектов. В каждом классе, обладающем информацией, должно быть объявлено несколько конструкторов.
+        <br>House: id, Номер квартиры, Площадь, Этаж, Количество комнат, Улица, Тип здания, Срок эксплуатации.
+        <br>Создать массив объектов. Вывести:
+        <br>а) список квартир, имеющих заданное число комнат;
+        <br>б) список квартир, имеющих заданное число комнат и расположенных на этаже, который находится в заданном промежутке;
+        <br>в) список квартир, имеющих площадь, превосходящую заданную.
+    </p>
+
+    <div class="images-container">
+        <img src="images/table2.png" alt="House Image 1">
+        <img src="images/diag2.png" alt="House Image 2">
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/tree/main/Разработка%20программных%20модулей/Work2" target="_blank">Код программы</a>
+    </div>
+
+    <p class="task-title">Задача 3</p>
+    <p class="task-description">
+        Создать приложение, удовлетворяющее требованиям, приведенным в задании. Наследование применять только в тех заданиях, в которых это логически обосновано. 
+        Аргументировать принадлежность классу каждого создаваемого метода и корректно переопределить для каждого класса методы equals(), hashCode(), toString().
+        <br>Создать объект класса Звездная система, используя классы Планета, Звезда, Луна. Методы: вывести на консоль количество планет в звездной системе, 
+        название звезды, добавление планеты в систему.
+    </p>
+
+    <div class="images-container">
+        <img src="images/table3.png" alt="Star System Image 1">
+        <img src="images/diag3.png" alt="Star System Image 2">
+        <img src="images/res3.png" alt="Star System Image 3">
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/tree/main/Разработка%20программных%20модулей/Work3" target="_blank">Код программы</a>
+    </div>
+
+    <p class="task-title">Задача 4</p>
+    <p class="task-description">
+        Создать класс Catalog с внутренним классом, с помощью объектов которого можно хранить информацию об истории выдач книги читателям.
+    </p>
+
+    <div class="images-container">
+        <img src="images/table4.png" alt="Catalog Image 1">
+        <img src="images/diag4.png" alt="Catalog Image 2">
+        <img src="images/res4.png" alt="Catalog Image 3">
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/tree/main/Разработка%20программных%20модулей/Work4" target="_blank">Код программы</a>
+    </div>
+
+    <p class="task-title">Задача 5</p>
+    <p class="task-description">
+        В зависимости от признака (0 или 1) в каждой строке текста удалить указанный символ везде, где он встречается, или вставить его после k-го символа.
+    </p>
+
+    <div class="images-container">
+        <img src="images/table5.png" alt="Text Processing Image 1">
+        <img src="images/res5.png" alt="Text Processing Image 2">
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/tree/main/Разработка%20программных%20модулей/Work5" target="_blank">Код программы</a>
+    </div>
+
+    <p class="task-title">Задача 6</p>
+    <p class="task-description">
+        Выполнить задания на основе задачи № 3, контролируя состояние потоков ввода/вывода. При возникновении ошибок, связанных с корректностью выполнения математических операций, генерировать и обрабатывать исключительные ситуации. Предусмотреть обработку исключений, возникающих при нехватке памяти, отсутствии требуемой записи (объекта) в файле, недопустимом значении поля и т. д. 
+        Выполнить задания из задачи № 3, реализуя собственные обработчики исключений и исключения ввода/вывода.
+    </p>
+
+    <div class="images-container">
+        <img src="images/table6.png" alt="Exception Handling Image 1">
+        <img src="images/diag6.png" alt="Exception Handling Image 2">
+        <img src="images/res6.png" alt="Exception Handling Image 3">
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/tree/main/Разработка%20программных%20модулей/Work6" target="_blank">Код программы</a>
+    </div>
+
+    <p class="task-title">Задача 7</p>
+    <p class="task-description">
+        Составить программу получения на экране рисунков.
+    </p>
+
+    <div class="images-container">
+        <img src="images/zad7.png" alt="Drawing Image 1">
+        <p class="task-description">Требуемое изображение по заданию 7</p>
+        <img src="images/table7.png" alt="Drawing Image 2">
+        <img src="images/res7.png" alt="Drawing Image 3">
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/tree/main/Разработка%20программных%20модулей/Work7" target="_blank">Код программы</a>
+    </div>
+
+    <p class="task-title">Задача 8</p>
+    <p class="task-description">
+        Построить иерархическое меню, в котором пробел будет открывать главное меню, а нажатием клавиши &lt;Enter&gt; будет разворачиваться подсвеченный пункт меню или, если пункт находится на самом нижнем уровне, нажатием клавиши &lt;Enter&gt; будет сворачиваться подменю. Нажатием клавиши &lt;Esc&gt; работа программы должна заканчиваться. Нижний уровень меню должен быть вертикальным.
+    </p>
+
+    <div class="images-container">
+        <img src="images/table8.png" alt="Menu Image 1">
+        <img src="images/res8.png" alt="Menu Image 2">
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/tree/main/Разработка%20программных%20модулей/Work8" target="_blank">Код программы</a>
+    </div>
+
+    <p class="task-title">Задача 9</p>
+    <p class="task-description">
+        Реализация Итальянской игры «Математико».
+    </p>
+
+    <div class="images-container">
+        <img src="images/table9.png" alt="Matematiko Image 1">
+        <img src="images/res9.png" alt="Matematiko Image 2">
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/tree/main/Разработка%20программных%20модулей/Work9" target="_blank">Код программы</a>
+    </div>
+
+    <p class="task-title">Ассемблер</p>
+
+    <p class="task-title">Задача 10</p>
+    <p class="task-description">
+        1 Задание: N DQ ? ; число без знака<br>
+        Не используя арифметические команды, реализовать оператор<br>
+        (2 вариант) N := N div 2<br>
+        Решение должно содержать не более трех команд.
+    </p>
+
+    <div class="images-container">
+        <img src="images/res10.1.png" alt="Assembler Task Image">
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/blob/main/%D0%90%D1%81%D1%81%D0%B5%D0%BC%D0%B1%D0%BB%D0%B5%D1%80/Work10.1" target="_blank">Код программы задания 1</a>
+    </div>
+
+    <p class="task-title">2 Задание</p>
+    <p class="task-description">
+        Реализовать процедуру Padd(x.a), которая реализует оператор x:= x - a.
+    </p>
+
+    <div class="images-container">
+        <img src="images/res10.2.png" alt="Assembler Task 2 Solution Image">
+    </div>
+
+    <div class="link-container">
+        <a href="https://github.com/Cr1stalUK/UP-01/blob/main/%D0%90%D1%81%D1%81%D0%B5%D0%BC%D0%B1%D0%BB%D0%B5%D1%80/Work10.2
+        " target="_blank">Код программы задания 2</a>
+    </div>
+</body>
+</html>
