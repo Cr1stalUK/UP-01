@@ -1,0 +1,232 @@
+package com.example;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+
+public class AutoServiceDatabaseGUI extends JFrame {
+
+    private JTable clientTable, carTable, requestTable, serviceTable, employeeTable;
+    private DefaultTableModel clientTableModel, carTableModel, requestTableModel, serviceTableModel, employeeTableModel;
+    private Connection connection;
+
+    public AutoServiceDatabaseGUI() {
+        super("База данных Автосервис");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1000, 600);
+        setLocationRelativeTo(null);
+
+        // Инициализация таблиц и моделей
+        clientTable = new JTable();
+        carTable = new JTable();
+        requestTable = new JTable();
+        serviceTable = new JTable();
+        employeeTable = new JTable();
+
+        clientTableModel = new DefaultTableModel();
+        carTableModel = new DefaultTableModel();
+        requestTableModel = new DefaultTableModel();
+        serviceTableModel = new DefaultTableModel();
+        employeeTableModel = new DefaultTableModel();
+
+        clientTable.setModel(clientTableModel);
+        carTable.setModel(carTableModel);
+        requestTable.setModel(requestTableModel);
+        serviceTable.setModel(serviceTableModel);
+        employeeTable.setModel(employeeTableModel);
+
+        // Создание вкладок
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("Client", new JScrollPane(clientTable));
+        tabbedPane.addTab("Car", new JScrollPane(carTable));
+        tabbedPane.addTab("Requests", new JScrollPane(requestTable));
+        tabbedPane.addTab("Services", new JScrollPane(serviceTable));
+        tabbedPane.addTab("Employee", new JScrollPane(employeeTable));
+
+        // Кнопка для обновления данных
+        JButton updateButton = new JButton("Обновить");
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateTables();
+            }
+        });
+
+        // Добавление кнопки и вкладок в интерфейс
+        JToolBar toolBar = new JToolBar();
+        toolBar.add(updateButton);
+
+        getContentPane().add(toolBar, BorderLayout.NORTH);
+        getContentPane().add(tabbedPane, BorderLayout.CENTER);
+
+        // Установка соединения с базой данных и обновление данных в таблицах
+        connectToDatabase();
+        updateTables();
+
+        setVisible(true);
+    }
+
+    private void connectToDatabase() {
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:C:\\databases\\myAutoService.db");
+            System.out.println("Соединение с базой данных установлено.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Ошибка при подключении к базе данных: " + e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void updateTables() {
+        try {
+            // Обновляем каждую таблицу с правильными названиями
+            updateClientTable();
+            updateCarTable();
+            updateEmployeeTable();
+            updateServicesTable();
+            updateRequestsTable();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Ошибка при обновлении данных: " + e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void updateClientTable() throws SQLException {
+        System.out.println("Обновление таблицы Client...");
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Client");
+
+        // Очищаем таблицу перед обновлением
+        clientTableModel.setDataVector(new Object[0][0], new String[]{"clientId", "fullName", "phone", "email", "carId"});
+
+        // Проходим по данным в ResultSet и добавляем их в таблицу
+        int rowCount = 0;
+        while (rs.next()) {
+            clientTableModel.addRow(new Object[]{
+                    rs.getInt("clientId"),
+                    rs.getString("fullName"),
+                    rs.getString("phone"),
+                    rs.getString("email"),
+                    rs.getInt("carId")
+            });
+            rowCount++;
+        }
+
+        System.out.println("Данные для Client добавлены: " + rowCount);
+        rs.close();
+        stmt.close();
+    }
+
+    private void updateCarTable() throws SQLException {
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Car");
+
+        carTableModel.setDataVector(new Object[0][0], new String[]{"carId", "vin", "make", "model", "year", "mileage"});
+
+        while (rs.next()) {
+            carTableModel.addRow(new Object[]{
+                    rs.getInt("carId"),
+                    rs.getString("vin"),
+                    rs.getString("make"),
+                    rs.getString("model"),
+                    rs.getInt("year"),
+                    rs.getInt("mileage")
+            });
+        }
+
+        rs.close();
+        stmt.close();
+    }
+
+    private void updateEmployeeTable() throws SQLException {
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Employee");
+
+        employeeTableModel.setDataVector(new Object[0][0], new String[]{"employeeId", "fullName", "position", "salary", "experience", "phone", "email"});
+
+        while (rs.next()) {
+            employeeTableModel.addRow(new Object[]{
+                    rs.getInt("employeeId"),
+                    rs.getString("fullName"),
+                    rs.getString("position"),
+                    rs.getDouble("salary"),
+                    rs.getInt("experience"),
+                    rs.getString("phone"),
+                    rs.getString("email")
+            });
+        }
+
+        rs.close();
+        stmt.close();
+    }
+
+    private void updateServicesTable() throws SQLException {
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Services");
+
+        serviceTableModel.setDataVector(new Object[0][0], new String[]{"serviceId", "name", "cost", "duration", "description"});
+
+        while (rs.next()) {
+            serviceTableModel.addRow(new Object[]{
+                    rs.getInt("serviceId"),
+                    rs.getString("name"),
+                    rs.getDouble("cost"),
+                    rs.getInt("duration"),
+                    rs.getString("description")
+            });
+        }
+
+        rs.close();
+        stmt.close();
+    }
+
+    private void updateRequestsTable() throws SQLException {
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Requests");
+
+        requestTableModel.setDataVector(new Object[0][0], new String[]{"requestId", "clientId", "employeeId", "carId", "serviceId", "status", "requestDate"});
+
+        while (rs.next()) {
+            requestTableModel.addRow(new Object[]{
+                    rs.getInt("requestId"),
+                    rs.getInt("clientId"),
+                    rs.getInt("employeeId"),
+                    rs.getInt("carId"),
+                    rs.getInt("serviceId"),
+                    rs.getString("status"),
+                    rs.getString("requestDate")
+            });
+        }
+
+        rs.close();
+        stmt.close();
+    }
+
+    private Object[][] getResultSetData(ResultSet rs) throws SQLException {
+        ResultSetMetaData metaData = rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+
+        rs.last();
+        int rowCount = rs.getRow();
+        rs.beforeFirst();
+
+        Object[][] data = new Object[rowCount][columnCount];
+        int row = 0;
+        while (rs.next()) {
+            for (int col = 0; col < columnCount; col++) {
+                data[row][col] = rs.getObject(col + 1);
+            }
+            row++;
+        }
+        return data;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new AutoServiceDatabaseGUI();
+            }
+        });
+    }
+}
