@@ -1,0 +1,209 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Lottomatiko extends JFrame {
+    private static final int SIZE = 5;
+
+    private JButton[][] buttons;
+    private Card[][] board;
+    private JLabel scoreLabel;
+    private int score;
+    private boolean gameFinished;
+
+    public Lottomatiko() {
+        setTitle("Математико");
+        setSize(400, 450);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        JPanel gamePanel = new JPanel(new GridLayout(SIZE, SIZE));
+        buttons = new JButton[SIZE][SIZE];
+        board = new Card[SIZE][SIZE];
+        initializeGame(gamePanel);
+
+        scoreLabel = new JLabel("Очки: 0", SwingConstants.CENTER);
+        add(scoreLabel, BorderLayout.NORTH);
+        add(gamePanel, BorderLayout.CENTER);
+
+        JButton finishButton = new JButton("Завершить игру");
+        finishButton.addActionListener(new FinishButtonListener());
+        add(finishButton, BorderLayout.SOUTH);
+
+        setVisible(true);
+    }
+
+    private void initializeGame(JPanel gamePanel) {
+        List<Card> cards = new ArrayList<>();
+        for (int i = 1; i <= 13; i++) {
+            for (int j = 0; j < 4; j++) {
+                cards.add(new Card(i));
+            }
+        }
+        Collections.shuffle(cards);
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                buttons[row][col] = new JButton();
+                buttons[row][col].setPreferredSize(new Dimension(60, 60));
+                buttons[row][col].addActionListener(new ButtonListener(row, col));
+                gamePanel.add(buttons[row][col]);
+            }
+        }
+
+        for (int i = 0; i < SIZE * SIZE; i++) {
+            int row = i / SIZE;
+            int col = i % SIZE;
+            board[row][col] = cards.get(i);
+        }
+    }
+
+    private class Card {
+        private int number;
+
+        public Card(int number) {
+            this.number = number;
+        }
+
+        public int getNumber() {
+            return number;
+        }
+    }
+
+    private class ButtonListener implements ActionListener {
+        private int row;
+        private int col;
+
+        public ButtonListener(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Card card = board[row][col];
+            buttons[row][col].setText(Integer.toString(card.getNumber()));
+            buttons[row][col].setEnabled(false);
+            checkGameFinished();
+        }
+    }
+
+    private class FinishButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            checkGameFinished();
+            calculateScore();
+        }
+    }
+
+    private void checkGameFinished() {
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (buttons[row][col].isEnabled()) {
+                    return;
+                }
+            }
+        }
+        gameFinished = true;
+    }
+
+    private void calculateScore() {
+        if (!gameFinished) {
+            JOptionPane.showMessageDialog(this, "Не все ячейки были открыты!", "Ошибка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        score = 0;
+        for (int row = 0; row < SIZE; row++) {
+            score += calculateScoreInSequence(row, 0, 0, 1);
+        }
+        for (int col = 0; col < SIZE; col++) {
+            score += calculateScoreInSequence(0, col, 1, 0);
+        }
+        score += calculateScoreInSequence(0, 0, 1, 1);
+        score += calculateScoreInSequence(0, SIZE - 1, 1, -1);
+
+        scoreLabel.setText("Очки: " + score);
+    }
+
+    private int calculateScoreInSequence(int row, int col, int dRow, int dCol) {
+        int[] count = new int[14];
+        int maxScore = 0;
+
+        for (int i = 0; i < SIZE; i++) {
+            count[board[row][col].getNumber()]++;
+            int currentScore = calculateScore(count);
+            if (currentScore > maxScore) {
+                maxScore = currentScore;
+            }
+            row += dRow;
+            col += dCol;
+        }
+
+        return maxScore;
+    }
+
+    private int calculateScore(int[] count) {
+        int score = 0;
+        for (int i = 1; i <= 13; i++) {
+            switch (count[i]) {
+                case 2:
+                    score = Math.max(score, 10);
+                    break;
+                case 4:
+                    score = Math.max(score, 20);
+                    break;
+                case 3:
+                    score = Math.max(score, 40);
+                    break;
+                case 5:
+                    score = Math.max(score, 50);
+                    break;
+                case 6:
+                    score = Math.max(score, 80);
+                    break;
+                case 7:
+                    score = Math.max(score, 90);
+                    break;
+                case 8:
+                    score = Math.max(score, 160);
+                    break;
+                case 9:
+                    score = Math.max(score, 170);
+                    break;
+                case 10:
+                    score = Math.max(score, 50);
+                    break;
+                case 11:
+                    score = Math.max(score, 60);
+                    break;
+                case 12:
+                    score = Math.max(score, 100);
+                    break;
+                case 13:
+                    score = Math.max(score, 110);
+                    break;
+                case 15:
+                    score = Math.max(score, 150);
+                    break;
+                case 16:
+                    score = Math.max(score, 160);
+                    break;
+                case 17:
+                    score = Math.max(score, 200);
+                    break;
+                case 18:
+                    score = Math.max(score, 210);
+                    break;
+            }
+        }
+        return score;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new Lottomatiko());
+    }
+}
