@@ -1,0 +1,50 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class CaterpillarDrawing extends JPanel {
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                int startX = 50, startY = 250;        int diameter = 50; 
+        for (int i = 0; i < 4; i++) {
+            drawCircleWithGrid(g2d, startX + i * diameter, startY, diameter);
+        }
+
+        drawCircleWithGrid(g2d, startX + 3 * diameter, startY - 30, diameter);  
+                drawCircleWithGrid(g2d, startX + 3 * diameter, startY - diameter - 30, diameter);          drawCircleWithGrid(g2d, startX + 3 * diameter, startY - 2 * diameter - 30, diameter);  
+        g2d.setColor(Color.BLACK);
+        g2d.fillOval(startX + 3 * diameter + 10, startY - 2 * diameter - 15, 10, 10);
+        g2d.fillOval(startX + 3 * diameter + 30, startY - 2 * diameter - 15, 10, 10);
+
+        g2d.drawArc(startX + 3 * diameter + 10, startY - 2 * diameter + 0, 30, 10, 0, -180);
+
+        g2d.drawLine(startX + 3 * diameter + 15, startY - 2 * diameter - 25, startX + 3 * diameter, startY - 3 * diameter - 10);
+        g2d.drawLine(startX + 3 * diameter + 35, startY - 2 * diameter - 25, startX + 3 * diameter + 50, startY - 3 * diameter - 10);
+    }
+
+        private void drawCircleWithGrid(Graphics2D g2d, int x, int y, int diameter) {
+
+                g2d.setColor(Color.BLACK);
+        g2d.drawOval(x, y, diameter, diameter);
+
+        g2d.setClip(new java.awt.geom.Ellipse2D.Double(x, y, diameter, diameter));
+
+                for (int i = 0; i < diameter; i += 5) {
+            g2d.drawLine(x + i, y, x, y + i);  
+            g2d.drawLine(x + i, y + diameter, x + diameter, y + i);          }
+
+        g2d.setClip(null);
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Гусеничка");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 400);
+        frame.add(new CaterpillarDrawing());
+        frame.setVisible(true);
+    }
+}
